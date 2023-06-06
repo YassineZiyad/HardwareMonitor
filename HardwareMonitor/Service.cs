@@ -31,13 +31,6 @@ namespace ConsoleService
             new Task(async () => {
                 do
                 {
-                    //if (!_ipAdress.Equals(GetIpAdress(port)) && port != null)
-                    //{
-                    //    _ipAdress = GetIpAdress(port);
-                    //    Console.WriteLine("----- Adress -----");
-                    //    Console.WriteLine(_ipAdress.ToString());
-                    //}
-
                     _hardware.RefreshAll();
 
                     await Task.Delay(ms);
@@ -77,7 +70,7 @@ namespace ConsoleService
         }
 
 
-        public void RunListener(string port)
+        public void RunListener(string port ,string salt)
         {
             new Task(() =>
             {
@@ -97,7 +90,7 @@ namespace ConsoleService
                     o.Merge(JObject.FromObject(_hardware.GetHardDisksValues()));
 
                     // Serialize the data into a JSON string
-                    var json = CryptingString("salt",o.ToString());
+                    var json = CryptingString(salt,o.ToString());
 
                     // Construct the response
                     var buffer = Encoding.UTF8.GetBytes(json);
@@ -109,7 +102,7 @@ namespace ConsoleService
                     output.Close();
                 }
             }).Start();
-            
+            Console.WriteLine(GetIpAdress(port));
         }
 
 

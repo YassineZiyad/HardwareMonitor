@@ -17,11 +17,11 @@ namespace HardwareMonitor
 
             service.RunRefreshing(400);
 
-            Console.Write("set datakey : ");
+            Console.Write("set datakey (salt): ");
 
-            service.RunDataPost(Console.ReadLine());
+            //service.RunDataPost(Console.ReadLine());
 
-            service.RunListener("8088");
+            service.RunListener("8088", Console.ReadLine());
 
             Console.ReadLine();
 
